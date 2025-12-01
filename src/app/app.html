@@ -5,7 +5,7 @@
   <!-- Backend test -->
   <button (click)="sayHello()">Call Node Backend</button>
 
-  @if (message) {
+  @if (message !== null && message !== '') {
     <p style="margin-top:10px; font-size:18px;">
       {{ message }}
     </p>
