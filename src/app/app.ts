@@ -7,8 +7,8 @@ import { Api } from './api';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.html',
+  styleUrls: ['./app.css']
 })
 export class App {
   message = '';
