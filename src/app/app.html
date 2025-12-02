@@ -3,7 +3,8 @@
   <h1>Angular + Node Demo</h1>
 
   <!-- Backend test -->
-  <button (click)="sayHello()">Call Node Backend</button>
+  <input [(ngModel)]="nameInput" placeholder="Enter your name..." />
+  <button (click)="sayHello(nameInput)">Call Node Backend</button>
 
   @if (message !== null && message !== '') {
     <p style="margin-top:10px; font-size:18px;">

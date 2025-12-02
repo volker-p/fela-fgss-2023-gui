@@ -9,8 +9,8 @@ export class Api {
 
   constructor(private http: HttpClient) {}
 
-  getHello(): Observable<{ message: string }> {
+  getHello(name: string): Observable<{ message: string }> {
     // /api is routed to Node via the proxy config
-    return this.http.get<{ message: string }>('/api/hello');
+    return this.http.get<{ message: string }>(`/api/hello?name=${encodeURIComponent(name)}`);
   }
 }

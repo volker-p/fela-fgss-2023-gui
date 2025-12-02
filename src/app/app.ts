@@ -12,6 +12,7 @@ import { Api } from './api';
 })
 export class App {
   message: string | null = null;
+  nameInput = '';
   inputText = '';
   response = '';
 
@@ -21,10 +22,10 @@ export class App {
   ) {}
 
   // Call backend
-  sayHello() {
+  sayHello(name: string) {
     console.log('sayHello called, message before:', this.message);
       this.message = null; // Reset message before new call
-    this.api.getHello().subscribe({
+    this.api.getHello(name).subscribe({
       next: (res: { message: string; }) => {
         console.log('Response received:', res);
         this.message = res.message;
