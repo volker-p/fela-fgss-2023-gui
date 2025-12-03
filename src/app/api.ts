@@ -9,6 +9,12 @@ export interface ServerStatus {
   message: string;
 }
 
+export interface ServerClock {
+  timestamp: string;
+  time: string;
+  date: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,5 +29,9 @@ export class Api {
 
   getStatus(): Observable<ServerStatus> {
     return this.http.get<ServerStatus>('/api/status');
+  }
+
+  getServerClock(): Observable<ServerClock> {
+    return this.http.get<ServerClock>('/api/clock');
   }
 }

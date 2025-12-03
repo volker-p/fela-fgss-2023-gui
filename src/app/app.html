@@ -2,6 +2,31 @@
 
   <h1>Angular + Node Demo</h1>
 
+  <!-- Digital Clock Display -->
+  <div style="margin: 20px auto; padding: 20px; max-width: 500px; border-radius: 8px; border: 2px solid #4a90e2; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <h2 style="margin-top: 0; color: white;">Server Clock</h2>
+
+    @if (serverClock) {
+      <div style="background-color: rgba(255,255,255,0.95); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 48px; font-weight: bold; color: #333; font-family: 'Courier New', monospace; letter-spacing: 3px;">
+          {{ serverClock.time }}
+        </div>
+        <div style="font-size: 20px; color: #666; margin-top: 10px;">
+          {{ serverClock.date }}
+        </div>
+        <div style="font-size: 12px; color: #999; margin-top: 8px; font-style: italic;">
+          Updates every second
+        </div>
+      </div>
+    }
+
+    @if (clockError) {
+      <div style="background-color: #f8d7da; padding: 15px; border-radius: 5px;">
+        <p style="margin: 5px 0; color: #721c24; font-weight: bold;">{{ clockError }}</p>
+      </div>
+    }
+  </div>
+
   <!-- Server Status Display -->
   <div style="margin: 20px auto; padding: 15px; max-width: 500px; border-radius: 8px; border: 2px solid #ddd;">
     <h2 style="margin-top: 0;">Server Status</h2>

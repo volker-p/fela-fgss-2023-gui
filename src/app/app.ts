@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Api, ServerStatus } from './api';
+import { Api, ServerStatus, ServerClock } from './api';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,11 @@ export class App implements OnInit, OnDestroy {
   statusError: string | null = null;
   private statusInterval: any;
 
+  // Server clock properties
+  serverClock: ServerClock | null = null;
+  clockError: string | null = null;
+  private clockInterval: any;
+
   constructor(
     private api: Api,
     private cdr: ChangeDetectorRef
@@ -32,12 +37,21 @@ export class App implements OnInit, OnDestroy {
     this.statusInterval = setInterval(() => {
       this.checkServerStatus();
     }, 5000); // Poll every 5 seconds
+
+    // Start polling server clock
+    this.updateServerClock();
+    this.clockInterval = setInterval(() => {
+      this.updateServerClock();
+    }, 1000); // Poll every 1 second for clock
   }
 
   ngOnDestroy() {
-    // Clear interval when component is destroyed
+    // Clear intervals when component is destroyed
     if (this.statusInterval) {
       clearInterval(this.statusInterval);
+    }
+    if (this.clockInterval) {
+      clearInterval(this.clockInterval);
     }
   }
 
@@ -52,6 +66,22 @@ export class App implements OnInit, OnDestroy {
         console.error('Error fetching server status:', err);
         this.statusError = 'Server offline or unreachable';
         this.serverStatus = null;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  updateServerClock() {
+    this.api.getServerClock().subscribe({
+      next: (clock) => {
+        this.serverClock = clock;
+        this.clockError = null;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error fetching server clock:', err);
+        this.clockError = 'Clock unavailable';
+        this.serverClock = null;
         this.cdr.detectChanges();
       }
     });
