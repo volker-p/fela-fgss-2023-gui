@@ -2,6 +2,45 @@
 
   <h1>Angular + Node Demo</h1>
 
+  <!-- Server Status Display -->
+  <div style="margin: 20px auto; padding: 15px; max-width: 500px; border-radius: 8px; border: 2px solid #ddd;">
+    <h2 style="margin-top: 0;">Server Status</h2>
+
+    @if (serverStatus) {
+      <div style="background-color: #d4edda; padding: 10px; border-radius: 5px;">
+        <p style="margin: 5px 0;">
+          <strong>Status:</strong>
+          <span style="color: #28a745; font-weight: bold;">● {{ serverStatus.status.toUpperCase() }}</span>
+        </p>
+        <p style="margin: 5px 0;">
+          <strong>Uptime:</strong> {{ formatUptime(serverStatus.uptime) }}
+        </p>
+        <p style="margin: 5px 0;">
+          <strong>Last Check:</strong> {{ serverStatus.timestamp | date:'short' }}
+        </p>
+        <p style="margin: 5px 0; font-style: italic;">
+          {{ serverStatus.message }}
+        </p>
+      </div>
+    }
+
+    @if (statusError) {
+      <div style="background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+        <p style="margin: 5px 0; color: #721c24;">
+          <strong>Status:</strong>
+          <span style="font-weight: bold;">● OFFLINE</span>
+        </p>
+        <p style="margin: 5px 0; color: #721c24;">{{ statusError }}</p>
+      </div>
+    }
+
+    <p style="font-size: 12px; color: #666; margin-top: 10px;">
+      (Auto-refreshes every 5 seconds)
+    </p>
+  </div>
+
+  <hr style="margin:20px 0">
+
   <!-- Backend test -->
   <input [(ngModel)]="nameInput" placeholder="Enter your name..." />
   <button (click)="sayHello(nameInput)">Call Backend</button>
